@@ -1,0 +1,194 @@
+/* Base reset and variables */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #000; color: #fff; overflow-x: hidden; }
+:root {
+  --container-max: 1200px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-7: 32px; --space-8: 40px;
+  --space-9: 48px; --space-10: 64px;
+  --brand-blue: #86D7EE;
+  --header-h: 64px;
+}
+
+/* Typography */
+body { font-family: 'Lexend', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+.title-1 {
+  font-weight: 800;
+  font-size: clamp(28px, 6vw, 56px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  margin: 0 0 var(--space-4);
+}
+.title-2 {
+  font-size: clamp(14px, 2.6vw, 22px);
+  line-height: 1.5;
+  color: #fff;
+  margin: 0 0 var(--space-7);
+}
+.ai-powered { color: #fff; }
+
+/* Containers */
+.container { width: min(100% - 2rem, var(--container-max)); margin-inline: auto; }
+
+/* Header */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.35);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  min-height: var(--header-h);
+}
+.brand { display: inline-flex; align-items: center; gap: var(--space-3); text-decoration: none; color: #fff; }
+.logo { height: 40px; width: auto; object-fit: contain; }
+.brand-name { font-family: 'Archivo Black', sans-serif; font-size: 22px; letter-spacing: 0.02em; }
+.nav-actions { display: inline-flex; align-items: center; gap: var(--space-3); }
+.link-pricing { color: #fff; text-decoration: none; font-family: 'Archivo Black', sans-serif; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; min-height: 44px; border: 2px solid #fff; border-radius: 999px; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-family: 'Archivo Black', sans-serif; padding: 12px 18px; min-height: 44px; border-radius: 999px; border: 2px solid transparent; }
+.btn-primary { background: #fff; color: #000; }
+.btn-outline { background: transparent; color: #fff; border-color: #fff; }
+.btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; }
+.hero-media { position: absolute; inset: 0; z-index: 0; }
+.hero-video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; }
+.video-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 60%, #000 100%); }
+.hero-content { position: relative; z-index: 1; padding: clamp(48px, 12vw, 140px) 0; }
+.cta-main { width: fit-content; }
+
+/* Trusted/logos */
+.trusted { padding: var(--space-8) 0; background: #000; }
+.trusted-text { text-align: center; font-family: 'Archivo Black', sans-serif; font-weight: 900; font-size: clamp(12px, 2.5vw, 16px); letter-spacing: 0.3em; margin: 0 0 var(--space-5); }
+
+/* Carousel: fluid and auto-animated on all viewports */
+.logos-carousel { position: relative; overflow: hidden; mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); }
+.logos-track { display: flex; align-items: center; gap: clamp(12px, 3vw, 24px); padding: 0 var(--space-4); animation: scroll-logos 60s linear infinite; }
+.logo-item { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; }
+.logo-item img { height: clamp(28px, 5vw, 50px); width: auto; object-fit: contain; max-width: min(180px, 40vw); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+
+/* Enable continuous scroll animation only on larger viewports */
+@media (min-width: 768px) {
+  /* Animation and mask are now enabled globally; keeping this block for potential future viewport-specific tuning. */
+}
+@keyframes scroll-logos { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* Small screens: auto-animated with hidden overflow (no scrollbars) */
+@media (max-width: 767.98px) {
+  .logos-carousel { overflow: hidden; }
+  .logos-track { width: auto; }
+  /* Removed scroll-snap and overflow-x to prevent horizontal scrollbar */
+}
+
+/* Footer */
+.site-footer { border-top: 1px solid rgba(255,255,255,0.08); background: #000; }
+.footer-inner { padding: var(--space-6) var(--space-4); }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--space-4); }
+.footer-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 8px; border-radius: 6px; }
+.footer-links a:hover, .footer-links a:focus { color: #fff; }
+.footer-links a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* Pointer/cursor: disable custom cursor on touch */
+@media (pointer: fine) {
+  body, * { cursor: url('./assets/basketball-cursor.svg'), auto; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .logos-track { animation: none !important; }
+  .hero-video { animation: none !important; }
+  /* Allow horizontal scroll so all logos remain accessible when animation is disabled */
+  .logos-carousel { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .logos-track { width: max-content; }
+}
+
+/* Larger screens spacing tuning */
+@media (min-width: 992px) {
+  .logo { height: 48px; }
+  .brand-name { font-size: 24px; }
+}
+
+/* === Hover spotlight effect for the word "Only" === */
+.hover-spotlight {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  padding: 0 0.35em; /* more space so larger ring never touches glyphs */
+}
+
+/* Base pseudo remains as minimal scale for fallback, but we’ll overlay SVG for the scribble look */
+.hover-spotlight::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4.6em;   /* bigger ring */
+  height: 2.9em;  /* bigger ring */
+  background-image: url('assets/scratch_ring.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transform: translate(-50%, -50%) scale(0.80) rotate(0deg);
+  opacity: 0;
+  transition: opacity 280ms ease; /* transform handled by animation */
+  will-change: transform, opacity;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hover-spotlight:hover::after,
+.hover-spotlight:focus-visible::after {
+  opacity: 1;
+  animation: scribble-in 460ms cubic-bezier(0.22, 0.72, 0.16, 1) both;
+  transform: translate(-50%, -50%) scale(1) rotate(0deg); /* final resting state after wobble */
+}
+
+@keyframes scribble-in {
+  0% { transform: translate(-50%, -50%) scale(0.80) rotate(0deg); }
+  40% { transform: translate(-50%, -50%) scale(1.06) rotate(-2.2deg); }
+  70% { transform: translate(-50%, -50%) scale(0.98) rotate(1.4deg); }
+  100% { transform: translate(-50%, -50%) scale(1.00) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-spotlight::after { transition: none !important; }
+  .hover-spotlight:hover::after,
+  .hover-spotlight:focus-visible::after { animation: none !important; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+.hover-spotlight:hover,
+.hover-spotlight:focus-visible {
+  color: inherit; /* keep original text color; ring is purely decorative */
+}
+
+.hover-spotlight:hover::before,
+.hover-spotlight:focus-visible::before {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-spotlight,
+  .hover-spotlight::before {
+    transition: none !important;
+  }
+}
+
+/* Small-screen header adjustments to prevent overflow on very narrow devices */
+@media (max-width: 400px) {
+  .logo { height: 32px; }
+  .brand-name { display: none; }
+  .header-inner { padding: var(--space-2) var(--space-3); }
+  .nav-actions { gap: var(--space-2); }
+  .btn, .link-pricing { padding: 10px 14px; min-height: 40px; font-size: 13px; }
+  .link-pricing { display: none; }
+}
+
+/* Slightly reduce container side gutters on the smallest screens */
+@media (max-width: 360px) {
+  .container { width: min(100% - 1rem, var(--container-max)); }
+}

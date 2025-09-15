@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BounceBunny</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./landing_page.css?v=5" />
+    <style>
+      html, body { background:#000; height:100%; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="BounceBunny Home">
+          <img class="logo" src="assets/logo.png" alt="BounceBunny logo" />
+          <span class="brand-name">BounceBunny</span>
+        </a>
+        <nav class="nav-actions" aria-label="Primary">
+          <a class="link-pricing" href="#pricing">Pricing</a>
+          <a class="btn btn-primary" href="#get-started">Get Started</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" aria-label="Intro">
+        <div class="hero-media" aria-hidden="true">
+          <video class="hero-video" autoplay muted loop playsinline preload="auto">
+             <source src="assets/dunk_mobile.mp4" type="video/mp4" />
+          </video>
+          <div class="video-overlay"></div>
+        </div>
+        <div class="hero-content container">
+          <h1 class="title-1">The <span class="hover-spotlight">Only</span>
+             </h1>
+              <h1 class="title-1">
+             Vertical Jump Coach
+              </h1>
+              <h1 class="title-1">
+             You Need </h1>
+          <p class="title-2">Tailored To Your Schedule, Body, And Equipments</p>
+          <a class="btn btn-outline cta-main" href="#get-started">Get Your Plan For Free Today</a>
+        </div>
+      </section>
+
+      <section class="trusted" aria-label="Trusted by">
+        <p class="trusted-text">TRUSTED BY ATHLETES FROM</p>
+        <div class="logos-carousel">
+          <div class="logos-track">
+            <!-- Populated dynamically via assets/university_logos.json -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-inner">
+        <nav class="footer-links" aria-label="Legal links">
+          <a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <a href="#" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+          <a href="#" target="_blank" rel="noopener noreferrer">Refund Policy</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+  <script>
+    (function(){
+      try {
+        const track = document.querySelector('.logos-track');
+        if (!track) return;
+        fetch('assets/university_logos.json', { cache: 'no-store' })
+          .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+          .then(data => {
+            const logos = Array.isArray(data && data.logos) ? data.logos : [];
+            if (!logos.length) return;
+            const frag = document.createDocumentFragment();
+            for (const item of logos) {
+              if (!item || !item.src) continue;
+              const wrap = document.createElement('div');
+              wrap.className = 'logo-item';
+              const img = document.createElement('img');
+              img.src = item.src;
+              img.alt = item.alt || '';
+              img.loading = 'lazy';
+              img.decoding = 'async';
+              wrap.appendChild(img);
+              frag.appendChild(wrap);
+            }
+            // Replace any placeholder content
+            track.textContent = '';
+            track.appendChild(frag);
+            // Duplicate for seamless loop on larger screens
+            const cloneFrag = document.createDocumentFragment();
+            track.querySelectorAll('.logo-item').forEach(el => cloneFrag.appendChild(el.cloneNode(true)));
+            track.appendChild(cloneFrag);
+          })
+          .catch(err => console.warn('Logo manifest load failed', err));
+      } catch (e) {
+        console.warn('Logos init error', e);
+      }
+    })();
+  </script>
+</html>
